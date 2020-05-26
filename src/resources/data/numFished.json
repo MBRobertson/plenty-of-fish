@@ -1,7 +1,6 @@
 [
 {
     "fish": "Blue Cod",
-    "data": {
         "fma": [
             {
                 "fma1": 6,
@@ -16,11 +15,9 @@
             }
         ],
         "total": 2155
-    }
 },
 {
     "fish": "Flat Fish",
-    "data": {
         "fma": [
             {
                 "fma1": 210,
@@ -35,30 +32,27 @@
             }
         ],
         "total": 2851
-    }
 },
 {
     "fish": "John Dory",
-    "data": {
-        "fma": [
-            {
-                "fma1": 180,
-                "fma2": 69,
-                "fma3": 0,
-                "fma4": 0,
-                "fma5": 0,
-                "fma6": 0,
-                "fma7": 177,
-                "fma8": 69,
-                "fma9": 180
-            }
-        ],
-        "total": 675
-    }
+    "fma": [
+        {
+            "fma1": 180,
+            "fma2": 69,
+            "fma3": 0,
+            "fma4": 0,
+            "fma5": 0,
+            "fma6": 0,
+            "fma7": 177,
+            "fma8": 69,
+            "fma9": 180
+        }
+    ],
+    "total": 675
+
 },
 {
     "fish": "Kingfish",
-    "data": {
         "fma": [
             {
                 "fma1": 88,
@@ -72,7 +66,74 @@
                 "fma9": 24
             }
         ],
-        "total": 675
-    }
+        "total": 232
+},
+{
+    "fish": "Orange Roughy",
+    "fma": [
+        {
+            "fma1": 258,
+            "fma2": 562,
+            "fma3": 1165,
+            "fma4": 1165,
+            "fma5": 1165,
+            "fma6": 1165,
+            "fma7": 1623,
+            "fma8": 258,
+            "fma9": 258
+        }
+    ],
+    "total": 7619
+},
+{
+    "fish": "Snapper",
+    "fma": [
+        {
+            "fma1": 4620,
+            "fma2": 373,
+            "fma3": 0,
+            "fma4": 0,
+            "fma5": 0,
+            "fma6": 0,
+            "fma7": 263,
+            "fma8": 667,
+            "fma9": 667
+        }
+    ],
+    "total": 6590
+},
+{
+    "fish": "Tarakihi",
+    "fma": [
+        {
+            "fma1": 695,
+            "fma2": 1967,
+            "fma3": 1287,
+            "fma4": 193,
+            "fma5": 75,
+            "fma6": 75,
+            "fma7": 1139,
+            "fma8": 210,
+            "fma9": 695
+        }
+    ],
+    "total": 6336
+},
+{
+    "fish": "Trevally",
+    "fma": [
+        {
+            "fma1": 1506,
+            "fma2": 304,
+            "fma3": 0,
+            "fma4": 0,
+            "fma5": 0,
+            "fma6": 0,
+            "fma7": 576,
+            "fma8": 576,
+            "fma9": 576
+        }
+    ],
+    "total": 3538
 }
 ]
