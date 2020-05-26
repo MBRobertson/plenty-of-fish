@@ -1,16 +1,78 @@
+[
 {
-    "fish":"Blue Cod",
-    "fma":[
-       {
-          "fma1":6,
-          "fma2":10,
-          "fma3":170,
-          "fma4":741,
-          "fma5":576,
-          "fma6":576,
-          "fma7":65,
-          "fma8":5
-       }
-    ],
-    "total":2155
- }
+    "fish": "Blue Cod",
+    "data": {
+        "fma": [
+            {
+                "fma1": 6,
+                "fma2": 10,
+                "fma3": 170,
+                "fma4": 741,
+                "fma5": 576,
+                "fma6": 576,
+                "fma7": 65,
+                "fma8": 5,
+                "fma9":6
+            }
+        ],
+        "total": 2155
+    }
+},
+{
+    "fish": "Flat Fish",
+    "data": {
+        "fma": [
+            {
+                "fma1": 210,
+                "fma2": 68,
+                "fma3": 355,
+                "fma4": 355,
+                "fma5": 355,
+                "fma6": 355,
+                "fma7": 873,
+                "fma8": 68,
+                "fma9": 210
+            }
+        ],
+        "total": 2851
+    }
+},
+{
+    "fish": "John Dory",
+    "data": {
+        "fma": [
+            {
+                "fma1": 180,
+                "fma2": 69,
+                "fma3": 0,
+                "fma4": 0,
+                "fma5": 0,
+                "fma6": 0,
+                "fma7": 177,
+                "fma8": 69,
+                "fma9": 180
+            }
+        ],
+        "total": 675
+    }
+},
+{
+    "fish": "Kingfish",
+    "data": {
+        "fma": [
+            {
+                "fma1": 88,
+                "fma2": 69,
+                "fma3": 0,
+                "fma4": 0,
+                "fma5": 0,
+                "fma6": 0,
+                "fma7": 27,
+                "fma8": 24,
+                "fma9": 24
+            }
+        ],
+        "total": 675
+    }
+}
+]
