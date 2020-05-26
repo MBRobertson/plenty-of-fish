@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 
-import { FMAMap } from './components/FMAMap';
+import { FMAMap, FMA } from './components/FMAMap';
 
 function App() {
   return (
     <div className="App">
-      <FMAMap/>
+      <FMAMap onMouseClick={(fma) => console.log(FMA[fma])}/>
     </div>
   );
 }
