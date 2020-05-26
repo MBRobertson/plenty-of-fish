@@ -34,16 +34,20 @@ const customTextOffsets: { [K in FMA]: [number, number] } = {
     [FMA.FMA10]: [0, 0]
 }
 
+const DEFAULT_COLOUR = '#00426e';
+
 interface IFMAMap {
-    onMouseEnter?: (fma: FMA) => any
-    onMouseLeave?: (fma: FMA) => any
-    onMouseClick?: (fma: FMA) => any
+    onMouseEnter?: (fma: FMA) => any,
+    onMouseLeave?: (fma: FMA) => any,
+    onMouseClick?: (fma: FMA) => any,
+    highlights?: {[K in FMA]? : string}
 }
 
-export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick }) => {
+export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights }) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const [nzMap, setNZMap] = useState<SVGGElement | undefined>(undefined);
     const [dimensions, setDimensions] = useState<[number, number]>([0, 0]);
+    const [fmas, setFMAs] = useState<SVGPathElement[]>([]);
 
     // Automatically update the bounding box of the svg
     const onResize = useCallback(() => {
@@ -66,35 +70,16 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             fmaMap.attr('transform', 'translate(130, 270)');
             // Extract paths
             const fmaData = await d3.xml(FMAMapSVG);
-            Array.from(fmaData.getElementsByTagName("path"))
-                .forEach((p, i) => {
+            const fmas = Array.from(fmaData.getElementsByTagName("path"))
+                .map((p, i) => {
                     const d = p.getAttribute("d");
 
                     const fma = fmaMap.append("path")
                         .attr('d', d!)
-                        .attr('fill', '#00426e')
+                        .attr('fill', DEFAULT_COLOUR)
                         .attr('stroke', '#0068ad')
                         .attr('stroke-width', 4)
                         .attr('opacity', 0.6)
-
-                    // Setup hover effects
-                    fma.on('mouseover', () => {
-                        fma.transition()
-                            .duration(200)
-                            .attr('opacity', 1);
-                        if (onMouseEnter) onMouseEnter(i as FMA);
-                    })
-
-                    fma.on('mouseout', () => {
-                        fma.transition()
-                            .duration(200)
-                            .attr('opacity', 0.6);
-                        if (onMouseLeave) onMouseLeave(i as FMA);
-                    })
-
-                    fma.on('click', () => {
-                        if (onMouseClick) onMouseClick(i as FMA);
-                    })
 
                     const bbox = fma.node()!.getBBox()
                     // Show fma title
@@ -109,7 +94,11 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                         .style('text-shadow', '1px 1px 3px rgba(0, 0, 0, 0.9)')
                         .style('fill', 'whitesmoke')
                         .style('pointer-events', 'none')
-                })
+
+                    return fma.node()!;
+                });
+
+            setFMAs(fmas);
 
             // Create a new group to store the NZ map
             const nzMap = map.append("g");
@@ -134,8 +123,37 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
         window.addEventListener('resize', onResize);
         onResize();
         return () => window.removeEventListener('resize', onResize);
-    }, [onResize, onMouseClick, onMouseEnter, onMouseLeave]);
-    // TODO: Do better than redrawing everything if mouse events change
+    }, [onResize]);
+
+    // Setup onclick
+    useEffect(() => {
+        fmas.forEach((f, i) => {
+            const fma = d3.select(f);
+            // Clear any existing events
+            fma.on('click', null);
+            fma.on('mouseover', null);
+            fma.on('mouseout', null);
+
+            // Setup hover effects
+            fma.on('mouseover', () => {
+                fma.transition()
+                    .duration(200)
+                    .attr('opacity', 1);
+                if (onMouseEnter) onMouseEnter(i as FMA);
+            })
+
+            fma.on('mouseout', () => {
+                fma.transition()
+                    .duration(200)
+                    .attr('opacity', 0.6);
+                if (onMouseLeave) onMouseLeave(i as FMA);
+            })
+
+            fma.on('click', () => {
+                if (onMouseClick) onMouseClick(i as FMA);
+            })
+        })
+    }, [fmas, onMouseClick, onMouseEnter, onMouseLeave])
 
     // Automativally update scales when a resize is detected
     useEffect(() => {
@@ -156,7 +174,25 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             // Move map fit into the screen
             d3.select(nzMap).attr('transform', `translate(${dx}, ${dy}) scale(${scale})`)
         }
-    }, [nzMap, dimensions])
+    }, [nzMap, dimensions]);
+
+    // Update colors where provided
+    useEffect(() => {
+        if (highlights) {
+            Object.values(FMA).forEach(value => {
+                const fma = d3.select(fmas[Number(value)]);
+                if (highlights[Number(value) as FMA]) {
+                    fma.transition()
+                        .duration(150)
+                        .attr('fill', highlights[Number(value) as FMA]!)
+                } else {
+                    fma.transition()
+                        .duration(150)
+                        .attr('fill', DEFAULT_COLOUR)
+                }
+            })
+        }
+    }, [fmas, highlights])
 
     return <div className="FMAMap">
         <svg width="100%" height="100%" ref={svgRef} />
