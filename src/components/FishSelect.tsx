@@ -1,5 +1,6 @@
 import React from 'react';
-import { Fishes, FishType } from '../resources/fish-images';
+import { FishType } from '../resources/data';
+import { Fishes } from '../resources/fish-images';
 
 import './FishSelect.css';
 
@@ -10,14 +11,14 @@ interface IFishSelect {
 export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick }) => {
 
     return <div className="FishSelect">
-        {Object.keys(Fishes).map(fishtype => {
-            const fish = Fishes[Number(fishtype) as FishType];
+        {Object.keys(Fishes).map(fishType => {
+            const fishImage = Fishes[fishType as FishType];
 
-            return <div key={fishtype} className="Fish" onClick={() => {
-                if (onMouseClick) onMouseClick(Number(fishtype) as FishType);
+            return <div key={fishType} className="Fish" onClick={() => {
+                if (onMouseClick) onMouseClick(fishType as FishType);
             }}>
-                <img src={fish.image} alt={fish.name}/>
-                <div>{fish.name}</div>
+                <img src={fishImage} alt={fishType}/>
+                <div>{fishType}</div>
             </div>
         })}
     </div>

@@ -4,6 +4,7 @@
     overflow-x: auto;
     box-sizing: border-box;
     background-color: rgb(40, 40, 40);
+    box-shadow: 0 0 10px rgb(10, 10, 10);
     border-top: 1px solid rgb(80, 80, 80);
     display: flex;
     flex-direction: row;
@@ -11,28 +12,36 @@
 }
 
 .FishSelect .Fish {
-    height: calc(100% - 26px);
+    height: calc(100% - 16px);
     margin: 8px;
-    padding: 5px;
-    background-color: rgba(230, 245, 255, 0.8);
+    padding: 7px;
+    /* background-color: #00426e9d; */
+    background: rgb(4,101,128);
+    background: radial-gradient(circle, rgba(4,101,128,0.7749474789915967) 10%, rgba(0,66,110,0.7469362745098039) 90%);
+    border: 1px solid #0068ad;
+    box-sizing: border-box;
     border-radius: 10px;
-    transition: background-color 0.17s ease-in-out;
+    transition: background-color 0.15s linear, box-shadow 0.15s linear, transform 0.15s linear;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 1px 1px 5px #0f1d25de;
 }
 
 .FishSelect .Fish:hover {
-    background-color: rgba(250, 250, 250, 1);
+    background-color: #00426e;
+    box-shadow: 3px 3px 7px #0f1d25ee;
+    transform: translateY(-1px);
 }
 
 .FishSelect .Fish img {
-    height: calc(100% - 15px)
+    height: calc(100% - 13px)
 }
 .FishSelect .Fish div {
     height: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    color: rgb(40, 40, 40);
+    font-size: 13px;
+    /* font-weight: bold; */
+    color: whitesmoke;
+    text-shadow: 0 0 3px #002741b7;
 }

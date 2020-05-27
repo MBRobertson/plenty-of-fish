@@ -2,23 +2,10 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as d3 from 'd3';
 
 import './FMAMap.css';
+import { FMA } from '../resources/data';
 
 import NZMapSVG from '../resources/maps/nz_hires.svg';
 import FMAMapSVG from '../resources/maps/fma.svg';
-
-// Maps the index of the paths in the SVG file to FMAs
-export enum FMA {
-    FMA1 = 8,
-    FMA2 = 6,
-    FMA3 = 3,
-    FMA4 = 4,
-    FMA5 = 1,
-    FMA6 = 2,
-    FMA7 = 0,
-    FMA8 = 5,
-    FMA9 = 7,
-    FMA10 = -1 // To be assigned
-}
 
 // Offset the helper text when the center isn't very useful
 const customTextOffsets: { [K in FMA]: [number, number] } = {
