@@ -25,7 +25,7 @@ function App() {
         onMouseClick={onClick}
         highlights={highlights}
       />
-      <FishSelect/>
+      <FishSelect onMouseClick={console.log}/>
     </div>
   );
 }

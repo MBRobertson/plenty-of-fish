@@ -3,12 +3,19 @@ import { Fishes, FishType } from '../resources/fish-images';
 
 import './FishSelect.css';
 
-export const FishSelect: React.FC = () => {
+interface IFishSelect {
+    onMouseClick?: (fish: FishType) => any
+}
+
+export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick }) => {
+
     return <div className="FishSelect">
         {Object.keys(Fishes).map(fishtype => {
             const fish = Fishes[Number(fishtype) as FishType];
 
-            return <div className="Fish">
+            return <div key={fishtype} className="Fish" onClick={() => {
+                if (onMouseClick) onMouseClick(Number(fishtype) as FishType);
+            }}>
                 <img src={fish.image} alt={fish.name}/>
                 <div>{fish.name}</div>
             </div>
