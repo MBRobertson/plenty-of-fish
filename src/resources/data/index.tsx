@@ -24,7 +24,7 @@ export enum FMA {
 }
 
 export interface IFishData {
-    fishName: string;
+    fishName: FishType;
     fma: {[key:string]:number};
     total: number;
 }
@@ -33,7 +33,7 @@ export const NumFished = (() => {
     let fishData: IFishData[] = [];
     data.forEach(fish => {
         let newFish: IFishData = {
-            fishName: fish.fish,
+            fishName: fish.fish as FishType,
             fma: fish.fma[0],
             total: fish.total,
         }
