@@ -25,16 +25,25 @@ export enum FMA {
 
 export interface IFishData {
     fishName: FishType;
-    fma: {[key:string]:number};
+    fma: {[key in FMA]?:number};
     total: number;
 }
 
 export const NumFished = (() => {
     let fishData: IFishData[] = [];
     data.forEach(fish => {
+        // Extract FMA data and convert to enums
+        const fmaData: {[key in FMA]?:number} = {}
+        Object.keys(fish.fma[0]).forEach(key => {
+            // At least one ts-ignore, unavoidable :(
+            // @ts-ignore
+            fmaData[FMA[key.toUpperCase()]] = (fish.fma[0][key] as number);
+        })
+
+
         let newFish: IFishData = {
             fishName: fish.fish as FishType,
-            fma: fish.fma[0],
+            fma: fmaData,
             total: fish.total,
         }
         fishData.push(newFish);
