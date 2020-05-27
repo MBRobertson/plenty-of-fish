@@ -15,9 +15,9 @@
     height: calc(100% - 16px);
     margin: 8px;
     padding: 7px;
-    background-color: #00426e9d;
-    /* background: rgb(4,101,128); */
-    /* background: radial-gradient(circle, rgba(4,101,128,0.7749474789915967) 10%, rgba(0,66,110,0.7469362745098039) 90%); */
+    /* background-color: #00426e9d; */
+    background: rgb(4,101,128);
+    background: radial-gradient(circle, rgba(4,101,128,0.7749474789915967) 10%, rgba(0,66,110,0.7469362745098039) 90%);
     border: 1px solid #0068ad;
     box-sizing: border-box;
     border-radius: 10px;
