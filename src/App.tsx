@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import './App.css';
 
 import { FMAMap, FMA } from './components/FMAMap';
+import { FishSelect } from './components/FishSelect';
 
 function App() {
   const [highlights, setHighlights] = useState<{[K in FMA]? : string}>({});
@@ -24,6 +25,7 @@ function App() {
         onMouseClick={onClick}
         highlights={highlights}
       />
+      <FishSelect onMouseClick={console.log}/>
     </div>
   );
 }
