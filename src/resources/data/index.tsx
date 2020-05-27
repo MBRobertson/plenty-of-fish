@@ -1,4 +1,4 @@
-import data from './resources/data/numFished.json'
+import data from './numFished.json'
 
 export interface IFishData {
     fishName: string;
@@ -6,7 +6,7 @@ export interface IFishData {
     total: number;
 }
 
-export function parseFish() {
+export const NumFished = (() => {
     let fishData: IFishData[] = [];
     data.forEach(fish => {
         let newFish: IFishData = {
@@ -17,4 +17,4 @@ export function parseFish() {
         fishData.push(newFish);
     });
     return fishData;
-}
+})();
