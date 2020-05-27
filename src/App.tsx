@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import './App.css';
 
-import { FMAMap, FMA } from './components/FMAMap';
+import { FMA } from './resources/data';
+import { FMAMap } from './components/FMAMap';
 import { FishSelect } from './components/FishSelect';
 
 function App() {

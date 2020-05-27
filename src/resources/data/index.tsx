@@ -1,5 +1,28 @@
 import data from './numFished.json'
 
+export type FishType = "Blue Cod" |
+    "Flat Fish" |
+    "John Dory" |
+    "Kingfish" |
+    "Orange Roughy" |
+    "Snapper" |
+    "Tarakihi" |
+    "Trevally";
+
+// Maps the index of the paths in the SVG file to FMAs
+export enum FMA {
+    FMA1 = 8,
+    FMA2 = 6,
+    FMA3 = 3,
+    FMA4 = 4,
+    FMA5 = 1,
+    FMA6 = 2,
+    FMA7 = 0,
+    FMA8 = 5,
+    FMA9 = 7,
+    FMA10 = -1 // To be assigned
+}
+
 export interface IFishData {
     fishName: string;
     fma: {[key:string]:number};
