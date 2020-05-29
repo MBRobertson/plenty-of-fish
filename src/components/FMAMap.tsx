@@ -41,6 +41,7 @@ interface IFMAMap {
     onMouseLeave?: (fma: FMA) => any,
     onMouseClick?: (fma: FMA) => any,
     highlights?: {[K in FMA]? : string}
+
 }
 
 export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights }) => {

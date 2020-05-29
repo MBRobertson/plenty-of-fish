@@ -1,14 +1,10 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.css';
-import {useRipple} from 'react-use-ripple';
 
 import { FMAMap, FMA } from './components/FMAMap';
 
 function App() { 
   const [highlights, setHighlights] = useState<{[K in FMA]? : string}>({});
-  const divRef = useRef(null);
-
-  useRipple(divRef);
 
   const onClick = useCallback((fma: FMA) => {
     const data = { ...highlights };
@@ -23,7 +19,7 @@ function App() {
   }, [highlights])
 
   return (
-    <div ref={divRef} className="App">
+    <div className="App">
       <FMAMap 
         onMouseClick={onClick}
         highlights={highlights}
