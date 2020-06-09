@@ -21,7 +21,7 @@
     border: 1px solid #0068ad;
     box-sizing: border-box;
     border-radius: 10px;
-    transition: background-color 0.15s linear, box-shadow 0.15s linear, transform 0.15s linear;
+    transition: background 0.15s linear, border 0.15s linear, box-shadow 0.15s linear, transform 0.15s linear;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -33,6 +33,20 @@
     background-color: #00426e;
     box-shadow: 3px 3px 7px #0f1d25ee;
     transform: translateY(-1px);
+}
+
+.FishSelect .Fish.Active {
+    background-color: #0071bd;
+    border: 1px solid #0083da;
+    box-shadow: 4px 4px 8px #0f1d25ee;
+    transform: translateY(-3px);
+}
+
+.FishSelect .Fish.Inactive {
+    border: 1px solid #004574;
+    background: rgb(3,81,103);
+    background: radial-gradient(circle, rgba(3,81,103,0.7987788865546218) 10%, rgba(0,52,87,1) 90%);
+    /* transform: translateY(1px); */
 }
 
 .FishSelect .Fish img {

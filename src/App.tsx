@@ -27,7 +27,7 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
     } else {
       highlights[fma] = {
         'fill': 'black',
-        'border': 'darkgrey'
+        'border': 'rgb(20, 20, 20)'
       }
     }
   }
@@ -37,17 +37,19 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
 
 function App() {
   const [highlights, setHighlights] = useState<{[K in FMA]? : MapHighlight}>({});
+  const [selectedFish, setSelectedFish] = useState<FishType[]>([]);
 
   const onClick = useCallback((fish: FishType) => {
+    setSelectedFish([fish]);
     setHighlights(computeHighlights(fish));
-  }, [])
+  }, [setSelectedFish])
 
   return (
     <div className="App">
       <FMAMap 
         highlights={highlights}
       />
-      <FishSelect onMouseClick={onClick}/>
+      <FishSelect SelectedFish={selectedFish} onMouseClick={onClick}/>
     </div>
   );
 }
