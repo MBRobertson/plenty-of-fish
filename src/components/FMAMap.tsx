@@ -7,6 +7,7 @@ import { FMA } from '../resources/data';
 import NZMapSVG from '../resources/maps/nz_hires.svg';
 import FMAMapSVG from '../resources/maps/fma.svg';
 
+
 // Offset the helper text when the center isn't very useful
 const customTextOffsets: { [K in FMA]: [number, number] } = {
     [FMA.FMA1]: [30, -20],
@@ -22,12 +23,20 @@ const customTextOffsets: { [K in FMA]: [number, number] } = {
 }
 
 const DEFAULT_COLOUR = '#00426e';
+const DEFAULT_BORDER_COLOUR = '#0068ad';
+const DEFAULT_OPACITY = 0.6;
+
+export interface MapHighlight {
+    fill?: string,
+    border?: string,
+    opacity?: number
+}
 
 interface IFMAMap {
     onMouseEnter?: (fma: FMA) => any,
     onMouseLeave?: (fma: FMA) => any,
     onMouseClick?: (fma: FMA) => any,
-    highlights?: {[K in FMA]? : string}
+    highlights?: {[K in FMA]? : MapHighlight}
 }
 
 export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights }) => {
@@ -64,9 +73,9 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                     const fma = fmaMap.append("path")
                         .attr('d', d!)
                         .attr('fill', DEFAULT_COLOUR)
-                        .attr('stroke', '#0068ad')
+                        .attr('stroke', DEFAULT_BORDER_COLOUR)
                         .attr('stroke-width', 4)
-                        .attr('opacity', 0.6)
+                        .attr('opacity', DEFAULT_OPACITY)
 
                     const bbox = fma.node()!.getBBox()
                     // Show fma title
@@ -132,7 +141,7 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             fma.on('mouseout', () => {
                 fma.transition()
                     .duration(200)
-                    .attr('opacity', 0.6);
+                    .attr('opacity', (highlights![Number(i) as FMA])?.opacity ?? DEFAULT_OPACITY);
                 if (onMouseLeave) onMouseLeave(i as FMA);
             })
 
@@ -140,7 +149,7 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                 if (onMouseClick) onMouseClick(i as FMA);
             })
         })
-    }, [fmas, onMouseClick, onMouseEnter, onMouseLeave])
+    }, [fmas, onMouseClick, onMouseEnter, onMouseLeave, highlights])
 
     // Automativally update scales when a resize is detected
     useEffect(() => {
@@ -171,11 +180,15 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                 if (highlights[Number(value) as FMA]) {
                     fma.transition()
                         .duration(150)
-                        .attr('fill', highlights[Number(value) as FMA]!)
+                        .attr('fill', highlights[Number(value) as FMA]!.fill ?? DEFAULT_COLOUR)
+                        .attr('stroke', highlights[Number(value) as FMA]!.border ?? DEFAULT_BORDER_COLOUR)
+                        .attr('opacity', highlights[Number(value) as FMA]!.opacity ?? DEFAULT_OPACITY)
                 } else {
                     fma.transition()
                         .duration(150)
                         .attr('fill', DEFAULT_COLOUR)
+                        .attr('stroke', DEFAULT_BORDER_COLOUR)
+                        .attr('opacity', DEFAULT_OPACITY ?? DEFAULT_OPACITY)
                 }
             })
         }
