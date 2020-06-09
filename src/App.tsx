@@ -37,8 +37,9 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
       }
     } else {
       highlights[fma] = {
-        'fill': 'black',
-        'border': 'rgb(20, 20, 20)'
+        'fill': 'rgb(10, 10, 10)',
+        'border': 'rgb(10, 10, 10)',
+        'opacity': 0.5
       }
     }
   }
