@@ -29,7 +29,7 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
     const fma: FMA = FMA[fmaKey as keyof typeof FMA]
     const value = data.fma[fma];
     if (value && maxValue) {
-      const color = d3.interpolateRdYlGn(1 - value/maxValue);
+      const color = d3.interpolateYlGnBu((1 - value/maxValue) * 0.85  + 0.075);
       highlights[fma] = {
         'fill': color,
         'border':  d3.rgb(color).darker(2).hex(),
@@ -51,9 +51,15 @@ function App() {
   const [selectedFish, setSelectedFish] = useState<FishType[]>([]);
 
   const onClick = useCallback((fish: FishType) => {
-    setSelectedFish([fish]);
-    setHighlights(computeHighlights(fish));
-  }, [setSelectedFish])
+    if (selectedFish.length === 1 && selectedFish[0] === fish) {
+      setSelectedFish([]);
+      setHighlights({});
+    } else {
+      setSelectedFish([fish]);
+      setHighlights(computeHighlights(fish));
+    }
+    
+  }, [selectedFish, setSelectedFish])
 
   return (
     <div className="App">
