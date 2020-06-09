@@ -3,24 +3,32 @@ import * as d3 from 'd3';
 import './App.css';
 
 import { FMA, NumFished, FishType } from './resources/data';
-import { FMAMap } from './components/FMAMap';
+import { FMAMap, MapHighlight } from './components/FMAMap';
 import { FishSelect } from './components/FishSelect';
 
 // Compute the highlights for the map for a given fishes data
-const computeHighlights = (fish: FishType): {[K in FMA]? : string} => {
+const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
   const data = NumFished.find(d => d.fishName === fish);
   if (!data) return {};
 
-  const highlights: {[K in FMA]? : string} = {};
+  const highlights: {[K in FMA]? : MapHighlight} = {};
   const maxValue = Object.values(data.fma).filter(a => a).reduce((a, b) => Math.max(a!, b!));
 
   for (const fmaKey in FMA) {
     const fma: FMA = FMA[fmaKey as keyof typeof FMA]
     const value = data.fma[fma];
     if (value && maxValue) {
-      highlights[fma] = d3.interpolateViridis(value/maxValue);
+      const color = d3.interpolateRdYlGn(1 - value/maxValue);
+      highlights[fma] = {
+        'fill': color,
+        'border':  d3.rgb(color).darker(2).hex(),
+        'opacity': 0.8
+      }
     } else {
-      highlights[fma] = 'black';
+      highlights[fma] = {
+        'fill': 'black',
+        'border': 'darkgrey'
+      }
     }
   }
 
@@ -28,11 +36,11 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : string} => {
 }
 
 function App() {
-  const [highlights, setHighlights] = useState<{[K in FMA]? : string}>({});
+  const [highlights, setHighlights] = useState<{[K in FMA]? : MapHighlight}>({});
 
   const onClick = useCallback((fish: FishType) => {
     setHighlights(computeHighlights(fish));
-  }, [highlights])
+  }, [])
 
   return (
     <div className="App">
