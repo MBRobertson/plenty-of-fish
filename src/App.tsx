@@ -61,6 +61,8 @@ function App() {
     
   }, [selectedFish, setSelectedFish])
 
+  console.log(ThreatLevels)
+
   return (
     <div className="App">
       <FMAMap 
