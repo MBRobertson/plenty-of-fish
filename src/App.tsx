@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import './App.css';
 
-import { FMA, NumFished, FishType } from './resources/data';
+import { FMA, NumFished, FishType, ThreatLevels } from './resources/data';
 import { FMAMap } from './components/FMAMap';
 import { FishSelect } from './components/FishSelect';
 
@@ -33,6 +33,8 @@ function App() {
   const onClick = useCallback((fish: FishType) => {
     setHighlights(computeHighlights(fish));
   }, [highlights])
+
+  console.log(ThreatLevels)
 
   return (
     <div className="App">
