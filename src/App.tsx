@@ -6,6 +6,17 @@ import { FMA, NumFished, FishType } from './resources/data';
 import { FMAMap, MapHighlight } from './components/FMAMap';
 import { FishSelect } from './components/FishSelect';
 
+// const fishDataScale = d3.scaleLinear().domain([
+//   NumFished.reduce((a, b) => {
+//     const minVal = Object.values(b.fma).reduce((a2, b2) => Math.min(a2!, b2!), a)
+//     return Math.min(a, minVal!);
+//   }, Number.MAX_VALUE),
+//   NumFished.reduce((a, b) => {
+//     const minVal = Object.values(b.fma).reduce((a2, b2) => Math.max(a2!, b2!), a)
+//     return Math.max(a, minVal!);
+//   }, 0)
+// ])
+
 // Compute the highlights for the map for a given fishes data
 const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
   const data = NumFished.find(d => d.fishName === fish);
