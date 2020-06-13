@@ -24,6 +24,7 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
 
   const highlights: {[K in FMA]? : MapHighlight} = {};
   const maxValue = Object.values(data.fma).filter(a => a).reduce((a, b) => Math.max(a!, b!));
+  const total = Object.values(data.fma).filter(a => a).reduce((a, b) => a! + b!) ?? 0;
 
   for (const fmaKey in FMA) {
     const fma: FMA = FMA[fmaKey as keyof typeof FMA]
@@ -35,7 +36,7 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
         'border':  d3.rgb(color).darker(2).hex(),
         'opacity': 0.8,
         'tooltipTitle': `${FMA[fma]} - ${fish}`,
-        'tooltipDescription': `${value} tonnes<br>${Math.round(((value)/maxValue)*1000)/10}% of all <i>${fish}</i> fished`
+        'tooltipDescription': `${value} tonnes<br>${Math.round(((value)/total)*1000)/10}% of all <i>${fish}</i> fished`
       }
     } else {
       highlights[fma] = {
