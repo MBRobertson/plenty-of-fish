@@ -29,7 +29,9 @@ const DEFAULT_OPACITY = 0.6;
 export interface MapHighlight {
     fill?: string,
     border?: string,
-    opacity?: number
+    opacity?: number,
+    tooltipTitle?: string,
+    tooltipDescription?: string
 }
 
 interface IFMAMap {
@@ -41,6 +43,7 @@ interface IFMAMap {
 
 export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights }) => {
     const svgRef = useRef<SVGSVGElement>(null);
+    const tooltipRef = useRef<HTMLDivElement>(null);
     const [nzMap, setNZMap] = useState<SVGGElement | undefined>(undefined);
     const [dimensions, setDimensions] = useState<[number, number]>([0, 0]);
     const [fmas, setFMAs] = useState<SVGPathElement[]>([]);
@@ -51,6 +54,25 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             setDimensions([svgRef.current.clientWidth, svgRef.current.clientHeight]);
         }
     }, [svgRef])
+
+    const setTooltipPos = useCallback((x, y) => {
+        if (!tooltipRef.current) return;
+        const tooltip = d3.select(tooltipRef.current);
+        tooltip.style("top", (y + 5) + "px").style("left", (x + 15) + "px");
+    }, [tooltipRef])
+
+    const setTooltipEnabled = useCallback((enabled) => {
+        if (!tooltipRef.current) return;
+        const tooltip = d3.select(tooltipRef.current);
+        tooltip.style("opacity", enabled ? 1 : 0);
+    }, [tooltipRef])
+
+    const setTooltipContent = useCallback(({ title, desc }: { title?: string, desc?: string}) => {
+        if (!tooltipRef.current) return;
+        const tooltip = d3.select(tooltipRef.current);
+        tooltip.select(".title").html(title !== undefined ? title : "FMA");
+        tooltip.select(".desc").html(desc !== undefined ? desc : "");
+    }, [tooltipRef])
 
     // Initialize D3
     useEffect(() => {
@@ -129,6 +151,7 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             fma.on('click', null);
             fma.on('mouseover', null);
             fma.on('mouseout', null);
+            fma.on('mousemove', null);
 
             // Setup hover effects
             fma.on('mouseover', () => {
@@ -142,14 +165,24 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                 fma.transition()
                     .duration(200)
                     .attr('opacity', (highlights![Number(i) as FMA])?.opacity ?? DEFAULT_OPACITY);
+                setTooltipEnabled(false);
                 if (onMouseLeave) onMouseLeave(i as FMA);
+            })
+
+            fma.on('mousemove', (d) => {
+                let title = FMA[i]
+                let desc = ""
+                //highlights[i as FMA]
+                setTooltipPos(d3.event.pageX, d3.event.pageY);
+                setTooltipContent({ title, desc })
+                setTooltipEnabled(true);
             })
 
             fma.on('click', () => {
                 if (onMouseClick) onMouseClick(i as FMA);
             })
         })
-    }, [fmas, onMouseClick, onMouseEnter, onMouseLeave, highlights])
+    }, [fmas, onMouseClick, onMouseEnter, onMouseLeave, highlights, setTooltipPos, setTooltipEnabled, setTooltipContent])
 
     // Automativally update scales when a resize is detected
     useEffect(() => {
@@ -196,5 +229,9 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
 
     return <div className="FMAMap">
         <svg width="100%" height="100%" ref={svgRef} />
+        <div ref={tooltipRef} className="FMAMap-tooltip" style={{ "opacity": 0 }}>
+            <span className="title">Title</span>
+            <span className="desc">Data</span>
+        </div>
     </div>
 }
