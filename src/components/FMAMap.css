@@ -27,6 +27,7 @@
 }
 
 .FMAMap-tooltip .desc {
+    text-align: left;
     font-size: 16px;
     padding: 2px 4px;
 }

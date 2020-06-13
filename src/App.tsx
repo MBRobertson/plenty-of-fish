@@ -33,13 +33,16 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
       highlights[fma] = {
         'fill': color,
         'border':  d3.rgb(color).darker(2).hex(),
-        'opacity': 0.8
+        'opacity': 0.8,
+        'tooltipTitle': `${FMA[fma]} - ${fish}`,
+        'tooltipDescription': `${value} tonnes<br>${Math.round(((value)/maxValue)*1000)/10}% of all <i>${fish}</i> fished`
       }
     } else {
       highlights[fma] = {
         'fill': 'rgb(10, 10, 10)',
         'border': 'rgb(10, 10, 10)',
-        'opacity': 0.5
+        'opacity': 0.5,
+        'tooltipDescription': 'No Data Avaliable'
       }
     }
   }

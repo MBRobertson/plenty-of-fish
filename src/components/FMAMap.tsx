@@ -172,7 +172,14 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             fma.on('mousemove', (d) => {
                 let title = FMA[i]
                 let desc = ""
-                //highlights[i as FMA]
+                if (highlights) {
+                    const data = highlights[i as FMA]
+                    if (data) {
+                        title = data.tooltipTitle ? data.tooltipTitle : title;
+                        desc = data.tooltipDescription ? data.tooltipDescription : desc;
+                    }
+                }
+                
                 setTooltipPos(d3.event.pageX, d3.event.pageY);
                 setTooltipContent({ title, desc })
                 setTooltipEnabled(true);
