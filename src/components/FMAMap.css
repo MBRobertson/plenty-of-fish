@@ -31,3 +31,10 @@
     font-size: 16px;
     padding: 2px 4px;
 }
+
+.FMAMap-legend {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+}

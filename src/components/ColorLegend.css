@@ -1,0 +1,25 @@
+.ColorLegend {
+    padding: 5px;
+}
+
+.ColorLegend canvas {
+    border-radius: 0px;
+    overflow: hidden;
+    border: 1px solid rgba(150, 150, 150, 1);
+    display: block;
+    margin: 0 auto;
+    z-index: 8;
+}
+
+.ColorLegend .title {
+    color: rgb(225, 225, 225);
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 16px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.ColorLegend svg {
+    display: block;
+    z-index: 5;
+}

@@ -6,6 +6,7 @@ import { FMA } from '../resources/data';
 
 import NZMapSVG from '../resources/maps/nz_hires.svg';
 import FMAMapSVG from '../resources/maps/fma.svg';
+import { ColorLegend } from './ColorLegend';
 
 
 // Offset the helper text when the center isn't very useful
@@ -236,6 +237,9 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
 
     return <div className="FMAMap">
         <svg width="100%" height="100%" ref={svgRef} />
+        <div className="FMAMap-legend">
+            <ColorLegend scale={d3.interpolateYlGnBu} domain={[0, 1]}/>
+        </div>
         <div ref={tooltipRef} className="FMAMap-tooltip" style={{ "opacity": 0 }}>
             <span className="title">Title</span>
             <span className="desc">Data</span>
