@@ -6,13 +6,14 @@ import './ColorLegend.css';
 interface IColorLegend {
     title?: string
     scale: (n: number) => string,
-    domain: [number, number]
+    domain: [number, number],
+    disabled?: boolean
 }
 
 const legendHeight = 20;
 const legendWidth = 250;
 
-export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain }) => {
+export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain, disabled }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
 
@@ -82,7 +83,7 @@ export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain }) =>
         
     }, [svgRef, domain])
 
-    return <div  className="ColorLegend">
+    return <div  className={`ColorLegend ${disabled ? 'disabled' : ''}`}>
         <div className="title">{ title ?? "Legend" }</div>
         <canvas ref={canvasRef}/>
         <svg width={`${legendWidth + 40}px`} height="25px" ref={svgRef} />

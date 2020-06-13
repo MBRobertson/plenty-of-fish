@@ -1,5 +1,13 @@
 .ColorLegend {
     padding: 5px;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-out;
+}
+
+.ColorLegend.disabled {
+    padding: 5px;
+    opacity: 0;
+    transform: translateY(5px);
 }
 
 .ColorLegend canvas {
@@ -10,6 +18,7 @@
     display: block;
     margin: 0 auto;
     z-index: 8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 .ColorLegend .title {

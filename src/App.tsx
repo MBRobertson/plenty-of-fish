@@ -10,9 +10,9 @@ import { ColorLegend } from './components/ColorLegend';
 const colorScheme = d3.interpolateYlGnBu
 
 // Compute the highlights for the map for a given fishes data
-const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
+const computeHighlights = (fish: FishType): { highlights: {[K in FMA]? : MapHighlight}, maxValue: number } => {
   const data = NumFished.find(d => d.fishName === fish);
-  if (!data) return {};
+  if (!data) return { highlights: {}, maxValue: 1 };
 
   const highlights: {[K in FMA]? : MapHighlight} = {};
   const maxValue = Object.values(data.fma).filter(a => a).reduce((a, b) => Math.max(a!, b!));
@@ -40,12 +40,13 @@ const computeHighlights = (fish: FishType): {[K in FMA]? : MapHighlight} => {
     }
   }
 
-  return highlights;
+  return { highlights, maxValue: (maxValue ?? 1) };
 }
 
 function App() {
   const [highlights, setHighlights] = useState<{[K in FMA]? : MapHighlight}>({});
   const [selectedFish, setSelectedFish] = useState<FishType[]>([]);
+  const [legendDomain, setLegendDomain] = useState<[number, number]>([0, 1]);
 
   const onClick = useCallback((fish: FishType) => {
     if (selectedFish.length === 1 && selectedFish[0] === fish) {
@@ -53,15 +54,17 @@ function App() {
       setHighlights({});
     } else {
       setSelectedFish([fish]);
-      setHighlights(computeHighlights(fish));
+      const { highlights, maxValue } = computeHighlights(fish)
+      setHighlights(highlights);
+      setLegendDomain([0, maxValue]);
     }
     
-  }, [selectedFish, setSelectedFish])
+  }, [selectedFish, setSelectedFish, setLegendDomain, setHighlights])
 
   return (
     <div className="App">
       <FMAMap highlights={highlights}>
-        <ColorLegend title="Quantity Fished (tonnes)" scale={colorScheme} domain={[0, 1]}/>
+        <ColorLegend disabled={selectedFish.length !== 1} title="Quantity Fished (tonnes)" scale={colorScheme} domain={legendDomain}/>
       </FMAMap>
       <FishSelect SelectedFish={selectedFish} onMouseClick={onClick}/>
     </div>
