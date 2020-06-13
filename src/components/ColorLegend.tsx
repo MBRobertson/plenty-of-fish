@@ -10,7 +10,7 @@ interface IColorLegend {
 }
 
 const legendHeight = 20;
-const legendWidth = 225;
+const legendWidth = 250;
 
 export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);

@@ -3,7 +3,8 @@
 }
 
 .ColorLegend canvas {
-    border-radius: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     overflow: hidden;
     border: 1px solid rgba(150, 150, 150, 1);
     display: block;
