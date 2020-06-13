@@ -4,4 +4,37 @@
     padding: 30px;
     box-sizing: border-box;
     background-color: rgb(30, 30, 30);
+    position: relative;
+}
+
+.FMAMap-tooltip {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(5, 5, 5, 0.6);
+    padding: 7px 12px;
+    align-items: flex-start;
+    border-radius: 5px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
+    color: rgb(215, 215, 215);
+    pointer-events: none;
+    transition: opacity 0.15s ease-out;
+}
+
+.FMAMap-tooltip .title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.FMAMap-tooltip .desc {
+    text-align: left;
+    font-size: 16px;
+    padding: 2px 4px;
+}
+
+.FMAMap-legend {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
 }
