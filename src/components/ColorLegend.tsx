@@ -57,7 +57,7 @@ export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain, disa
                 .attr("y1", a[1])
                 .attr("x2", b[0])
                 .attr("y2", b[1])
-                .attr("stroke", "rgb(150, 150, 150)")
+                .attr("stroke", "#0068ad")
                 .attr("stroke-width", 2)
         }
 
