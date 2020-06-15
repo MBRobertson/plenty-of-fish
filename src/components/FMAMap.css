@@ -5,6 +5,11 @@
     box-sizing: border-box;
     background-color: rgb(30, 30, 30);
     position: relative;
+    overflow: hidden;
+}
+
+.FMAMap>svg {
+    transition: transform 0.35s ease-in-out;
 }
 
 .FMAMap-tooltip {

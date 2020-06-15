@@ -46,9 +46,11 @@ const computeHighlights = (fish: FishType): { highlights: {[K in FMA]? : MapHigh
 function App() {
   const [highlights, setHighlights] = useState<{[K in FMA]? : MapHighlight}>({});
   const [selectedFish, setSelectedFish] = useState<FishType[]>([]);
+  const [selectedFMA, setSelectedFMA] = useState<FMA | undefined>(undefined)
   const [legendDomain, setLegendDomain] = useState<[number, number]>([0, 1]);
 
-  const onClick = useCallback((fish: FishType) => {
+  const onFishClick = useCallback((fish: FishType) => {
+    setSelectedFMA(undefined);
     if (selectedFish.length === 1 && selectedFish[0] === fish) {
       setSelectedFish([]);
       setHighlights({});
@@ -61,12 +63,19 @@ function App() {
     
   }, [selectedFish, setSelectedFish, setLegendDomain, setHighlights])
 
+  const onFMAClick = useCallback((fma: FMA) => {
+    setSelectedFish([]);
+    setHighlights({});
+    if (selectedFMA === fma) setSelectedFMA(undefined);
+    else setSelectedFMA(fma);
+  }, [selectedFMA])
+
   return (
     <div className="App">
-      <FMAMap highlights={highlights}>
+      <FMAMap highlights={highlights} onMouseClick={onFMAClick} selectedFMA={selectedFMA}>
         <ColorLegend disabled={selectedFish.length !== 1} title="Quantity Fished (tonnes)" scale={colorScheme} domain={legendDomain}/>
       </FMAMap>
-      <FishSelect SelectedFish={selectedFish} onMouseClick={onClick}/>
+      <FishSelect SelectedFish={selectedFish} onMouseClick={onFishClick}/>
     </div>
   );
 }

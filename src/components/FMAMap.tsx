@@ -38,10 +38,11 @@ interface IFMAMap {
     onMouseEnter?: (fma: FMA) => any,
     onMouseLeave?: (fma: FMA) => any,
     onMouseClick?: (fma: FMA) => any,
-    highlights?: {[K in FMA]? : MapHighlight}
+    highlights?: {[K in FMA]? : MapHighlight},
+    selectedFMA?: FMA
 }
 
-export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights, children }) => {
+export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights, selectedFMA, children }) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
     const [nzMap, setNZMap] = useState<SVGGElement | undefined>(undefined);
@@ -233,6 +234,32 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             })
         }
     }, [fmas, highlights])
+
+
+    const [offset, setOffset] = useState<[number, number]>([0, 0]);
+
+    useEffect(() => {
+        let newOffset: [number, number] = [0, 0];
+        if (svgRef.current) {
+            if (selectedFMA !== undefined) {
+                const outerBox = svgRef.current.getBoundingClientRect();
+                const bbox = fmas[selectedFMA].getBoundingClientRect()
+                
+                const offsetX = -bbox.x + offset[0] + outerBox.width/2 - bbox.width/2 + 30;
+                const offsetY = -bbox.y + offset[1] + outerBox.height/2 - bbox.height/2 + 30;
+
+                newOffset = [offsetX, offsetY]
+            }
+        }
+        if (newOffset[0] !== offset[0] || newOffset[1] !== offset[1]) {
+            setOffset(newOffset);
+        }
+        // eslint-disable-next-line
+    }, [selectedFMA, svgRef, fmas])
+
+    useEffect(() => {
+        d3.select(svgRef.current).style("transform", `translate(${offset[0]}px, ${offset[1]}px)`)
+    }, [svgRef, offset])
 
     return <div className="FMAMap">
         <svg width="100%" height="100%" ref={svgRef} />
