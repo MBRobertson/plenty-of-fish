@@ -36,7 +36,7 @@
 
 .FishSelect .Fish .popout {
     position: absolute;
-    background-color: rgb(127, 127, 127);
+    /* background-color: rgb(127, 127, 127); */
     height: 100%;
     width: calc(100% - 15px);
     border-top-left-radius: 5px;
@@ -49,6 +49,22 @@
 
 .FishSelect .Fish .popout.inactive {
     height: 0px;
+}
+
+.FishSelect .Fish .popoutContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.FishSelect .Fish .popoutContent .bar {
+    margin: 0 1px;
+    background-color: #009456;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    flex-grow: 1;
 }
 
 .FishSelect .Fish .name {
