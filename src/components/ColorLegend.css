@@ -14,7 +14,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     overflow: hidden;
-    border: 1px solid rgba(150, 150, 150, 1);
+    border: 1px solid #0068ad;
     display: block;
     margin: 0 auto;
     z-index: 8;

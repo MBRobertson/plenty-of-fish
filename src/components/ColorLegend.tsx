@@ -30,8 +30,6 @@ export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain, disa
         const ctx = canvasRef.current.getContext("2d");
         if (!ctx) return;
 
-        console.log("got context")
-
         const image = ctx.createImageData(legendWidth, 1);
         d3.range(legendWidth).forEach((i) => {
             const c = d3.rgb(scale(1 - i/legendWidth))
@@ -57,7 +55,7 @@ export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain, disa
                 .attr("y1", a[1])
                 .attr("x2", b[0])
                 .attr("y2", b[1])
-                .attr("stroke", "rgb(150, 150, 150)")
+                .attr("stroke", "#0068ad")
                 .attr("stroke-width", 2)
         }
 
