@@ -30,8 +30,6 @@ export const ColorLegend: React.FC<IColorLegend> = ({ title, scale, domain, disa
         const ctx = canvasRef.current.getContext("2d");
         if (!ctx) return;
 
-        console.log("got context")
-
         const image = ctx.createImageData(legendWidth, 1);
         d3.range(legendWidth).forEach((i) => {
             const c = d3.rgb(scale(1 - i/legendWidth))

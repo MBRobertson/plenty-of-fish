@@ -86,7 +86,7 @@ function App() {
       <FMAMap highlights={highlights} onMouseClick={onFMAClick} selectedFMA={selectedFMA}>
         <ColorLegend disabled={selectedFish.length !== 1} title="Quantity Fished (tonnes)" scale={colorScheme} domain={legendDomain}/>
       </FMAMap>
-      <FishSelect SelectedFish={selectedFish} onMouseClick={onFishClick}/>
+      <FishSelect SelectedFMA={selectedFMA} SelectedFish={selectedFish} onMouseClick={onFishClick}/>
     </div>
   );
 }
