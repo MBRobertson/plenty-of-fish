@@ -110,6 +110,7 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                         .attr('dominant-baseline', 'middle')
                         .style('font-size', 50)
                         .style('font-weight', 'bold')
+                        .style('user-select', 'none')
                         .style('text-shadow', '1px 1px 3px rgba(0, 0, 0, 0.9)')
                         .style('fill', 'whitesmoke')
                         .style('pointer-events', 'none')
