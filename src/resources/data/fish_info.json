@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Snapper",
+        "subtitle": "The Snapper is the fish that most people seek on their recreational fishing trips.",
+        "description": "The Snapper has pink skin with small bluish white dotes and is found all over the country in warmer waters, most commonly however in the Hauraki Gulf and the Firth of Thames. They are most abundantly found in depths from 15m to 60m but can be found in water up to 200m. Being a recreational fish which has fishermen enjoying the taste of them and seeking the elusive 20 pounder as well as commercial fishing has led to the population of snapper decreasing. This is especially apparent in SNA1 (Snapper Area 1) where the recreational catch limit decreased from 9 fish per person with a 270mm size limit to 7 per person with a 300mm size limit in 2014."
+    },
+    {
+        "title": "Blue Cod",
+        "subtitle": "Blue Cod is a popular recreational fish which are most commonly found in the South Island.",
+        "description": "Blue Cod are a fish which are only found in New Zealand waters in depths up to 150m. They have blueish brown skin and only grow to be about 600mm long. They are most abundant in the South Island, and due to this are a popular recreational fish. Part of their popularity comes from them being a fish which is simple to catch (most often in cod pots) and nice to eat."
+    },
+    {
+        "title": "Flat Fish",
+        "subtitle": "Flat Fish is the catch all term used to encapture fish like flounder which are flat and feed on the ocean floor.",
+        "description": "There are 11 species of flat fish that can be found in New Zealand waters. The flat fish are expert at camoflaging themselves and can adjust the colour of their body to match the floor of the ocean they are resting on. They are born with on eye on either side of their head but as they mature they lie flat on the ocean floor and one of their eyes migrates so that they end up with both eyes on one side of their head! Eight species of the 11, known as the \"flounders\" are well known for their quality eating."
+    },
+    {
+        "title": "John Dory",
+        "subtitle": "John Dory are a less common fish found near sandy or muddy bottoms in northern New Zealand.",
+        "description": "John Dory are almost oval shapes and have a distinctive dark blue spot in the middle of their body. They are found in Australia, Japan and New Zealand and other parts of the Eastern Atlantic Ocean. In New Zealand they are found in the inshore coastal waters and sometimes in Tasman Bay. John Dory are mostly caught in mixed species dredges around New Zealand all year round."
+    },
+    {
+        "title": "Kingfish",
+        "subtitle": "Yellowtail Kingfish are a very smart fish which are roaming carnivores.",
+        "description": "Kingfish are considered good enough fish to put on Japanese Sashimi and are found all around New Zealand. They are a brassy green colour with a yellow tail and silver white belly. They are great fun to catch recreationally and are caught commercially, often just as by-catch."
+    },
+    {
+        "title": "Orange Roughy",
+        "subtitle": "The Orange Roughy is a fish whose fish stocks have been monitored closely since the 1970s.",
+        "description": "Orange Roughy are found in deeper waters, from 750m to 1200m in various places around New Zealand. They have had an interesting past as they went from a fishing boom in the 1970s, to having their quotas reduced in order to maintain population levels. Since then their fish stock has been carefully monitored and trawlers are only allowed to keep 1 of 22 adult fish to allow stocks to replenish."
+    },
+    {
+        "title": "Tarakihi",
+        "subtitle": "Tarakihi have been one of the most popular fish to catch in New Zealand for many years.",
+        "description": "Tarakihi are a silvery grey colour with a blue sheen and are found in deeper waters over summer and shallower waters during winter. The stocks of Tarakihi have been relatively stable over the more than 100 years that they have been commercially fished. They are highly regarded by both commercial and recreational fisherman."
+    },
+    {
+        "title": "Trevalley",
+        "subtitle": "Trevalley are a popular fish which grow up in shallow waters among the weeds.",
+        "description": "Trevalley are found among many parts of the North Island and top parts of the South Island. Young fish grow among seagrass but as it is disappearing, scientists are experimenting with artificial seagrass in the Coromandel which has been successful in housing young Trevalley. As far as stocks go, the fish population has stayed relatively stable apart from a decline of the North Island west coast in the 1970s and 1980s."
+    }
+]
