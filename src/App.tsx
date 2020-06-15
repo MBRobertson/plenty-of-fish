@@ -65,9 +65,20 @@ function App() {
 
   const onFMAClick = useCallback((fma: FMA) => {
     setSelectedFish([]);
-    setHighlights({});
-    if (selectedFMA !== undefined) setSelectedFMA(undefined); // Cheat and always deselect after a zoom
-    else setSelectedFMA(fma);
+    if (selectedFMA !== undefined) {
+      setSelectedFMA(undefined); // Cheat and always deselect after a zoom
+      setHighlights({});
+    }
+    else {
+      setSelectedFMA(fma);
+      setHighlights({
+        [fma as FMA]: {
+          opacity: 0.7,
+          fill: '#00bdb6',
+          border: '#006e6a'
+        }
+      });
+    }
   }, [selectedFMA])
 
   return (
