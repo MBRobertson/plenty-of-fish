@@ -236,29 +236,35 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
     }, [fmas, highlights])
 
 
-    const [offset, setOffset] = useState<[number, number]>([0, 0]);
+    const [offset, setOffset] = useState<[number, number, number]>([0, 0, 1]);
 
     useEffect(() => {
-        let newOffset: [number, number] = [0, 0];
+        let newOffset: [number, number, number] = [0, 0, 1];
         if (svgRef.current) {
             if (selectedFMA !== undefined) {
                 const outerBox = svgRef.current.getBoundingClientRect();
-                const bbox = fmas[selectedFMA].getBoundingClientRect()
+                const bbox = fmas[selectedFMA].getBoundingClientRect();
                 
-                const offsetX = -bbox.x + offset[0] + outerBox.width/2 - bbox.width/2 + 30;
-                const offsetY = -bbox.y + offset[1] + outerBox.height/2 - bbox.height/2 + 30;
+                const offsetX = (-bbox.x + offset[0] + outerBox.width/(2) - bbox.width/(2)) + 30;
+                const offsetY = (-bbox.y + offset[1] + outerBox.height/(2) - bbox.height/(2)) + 30;
 
-                newOffset = [offsetX, offsetY]
+                const scale = Math.min(2.5, Math.max(1,
+                    Math.min(
+                        outerBox.width/bbox.width,
+                        outerBox.height/bbox.height
+                    )*0.85));
+
+                newOffset = [offsetX*scale, offsetY*scale, scale]
             }
         }
-        if (newOffset[0] !== offset[0] || newOffset[1] !== offset[1]) {
+        if (newOffset[0] !== offset[0] || newOffset[1] !== offset[1] || newOffset[2] !== offset[2]) {
             setOffset(newOffset);
         }
         // eslint-disable-next-line
     }, [selectedFMA, svgRef, fmas])
 
     useEffect(() => {
-        d3.select(svgRef.current).style("transform", `translate(${offset[0]}px, ${offset[1]}px)`)
+        d3.select(svgRef.current).style("transform", `translate(${offset[0]}px, ${offset[1]}px) scale(${offset[2]})`)
     }, [svgRef, offset])
 
     return <div className="FMAMap">

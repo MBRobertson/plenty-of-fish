@@ -30,6 +30,10 @@
     box-shadow: 1px 1px 5px #0f1d25de;
 }
 
+.FishSelect .Fish>div {
+    white-space: nowrap;
+}
+
 .FishSelect .Fish:hover {
     background-color: #00426e;
     box-shadow: 3px 3px 7px #0f1d25ee;
