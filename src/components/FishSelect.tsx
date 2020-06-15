@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as d3 from 'd3';
 import { FishType } from '../resources/data';
 import { Fishes } from '../resources/fish-images';
 import { ThreatLevels, FMA, DangerLevels } from '../resources/data';
@@ -9,6 +10,11 @@ interface IFishSelect {
     onMouseClick?: (fish: FishType) => any,
     SelectedFish?: FishType[],
     SelectedFMA?: FMA
+}
+
+const levelToPercent = (level: DangerLevels) => {
+    const val = parseInt(DangerLevels[level]) + 4;
+    return val/8;
 }
 
 export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, SelectedFMA }) => {
@@ -38,8 +44,12 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
 
             let popupData: React.ReactNode[] = [];
             if (threatLevels[i]) {
-                popupData = threatLevels[i].map((level) => {
-                    return <div style={{ height: '100%' }} className="bar"></div>
+                popupData = threatLevels[i].map((level, i) => {
+                    const percent = levelToPercent(level);
+                    return <div style={{ 
+                        height: `${(percent*100).toFixed(2)}%`,
+                        backgroundColor: d3.interpolateRdYlGn(i === 0 ? 1-percent : percent)
+                    }} className="bar"></div>
                 })
             }
 
