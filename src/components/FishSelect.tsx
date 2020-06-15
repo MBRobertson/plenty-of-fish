@@ -23,8 +23,11 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish }
             return <div key={fishType} className={`Fish ${extraClassName}`} onClick={() => {
                 if (onMouseClick) onMouseClick(fishType as FishType);
             }}>
+                <div className="popout">
+                    <div className="popoutContent">Test</div>
+                </div>
                 <img src={fishImage} alt={fishType}/>
-                <div>{fishType}</div>
+                <div className="name">{fishType}</div>
             </div>
         })}
     </div>
