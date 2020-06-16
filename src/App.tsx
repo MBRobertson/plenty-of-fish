@@ -88,7 +88,7 @@ function App() {
         <ColorLegend disabled={selectedFish.length !== 1} title="Quantity Fished (tonnes)" scale={colorScheme} domain={legendDomain}/>
       </FMAMap>
       <FishSelect SelectedFMA={selectedFMA} SelectedFish={selectedFish} onMouseClick={onFishClick}/>
-      { selectedFish[0] !== undefined && <InfoOverlay currentFish={selectedFish[0]}/> }      
+      <InfoOverlay currentFish={selectedFish[0]}/>  
     </div>
   );
 }
