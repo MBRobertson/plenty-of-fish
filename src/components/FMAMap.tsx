@@ -10,18 +10,18 @@ import FMAMapSVG from '../resources/maps/fma.svg';
 
 // Offset the helper text when the center isn't very useful
 const customTextOffsets: { [K in FMA]: [number, number] } = {
-    [FMA.FMA1]: [30, -20],
+    [FMA.FMA1]: [50, -90],
     [FMA.FMA2]: [-20, 40],
-    [FMA.FMA3]: [70, 0],
-    [FMA.FMA4]: [0, 0],
-    [FMA.FMA5]: [-80, 0],
-    [FMA.FMA6]: [0, 0],
-    [FMA.FMA7]: [0, 30],
-    [FMA.FMA8]: [-80, -80],
-    [FMA.FMA9]: [-130, 30],
+    [FMA.FMA3]: [70, -25],
+    [FMA.FMA4]: [0, -50],
+    [FMA.FMA5]: [-80, -70],
+    [FMA.FMA6]: [100, -150],
+    [FMA.FMA7]: [20, -20],
+    [FMA.FMA8]: [-100, -80],
+    [FMA.FMA9]: [-130, -60],
     [FMA.FMA10]: [0, 0]
 }
-
+const FMA_OFFSET = [130, 270]
 const DEFAULT_COLOUR = '#00426e';
 const DEFAULT_BORDER_COLOUR = '#0068ad';
 const DEFAULT_OPACITY = 0.6;
@@ -39,10 +39,11 @@ interface IFMAMap {
     onMouseLeave?: (fma: FMA) => any,
     onMouseClick?: (fma: FMA) => any,
     highlights?: {[K in FMA]? : MapHighlight},
+    images?: {[K in FMA]? : [string, number][]}
     selectedFMA?: FMA
 }
 
-export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights, selectedFMA, children }) => {
+export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseClick, highlights, selectedFMA, children, images }) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
     const [nzMap, setNZMap] = useState<SVGGElement | undefined>(undefined);
@@ -86,7 +87,7 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
             const map = svg.append("g");
             // Draw the FMA areas
             const fmaMap = map.append("g");
-            fmaMap.attr('transform', 'translate(130, 270)');
+            fmaMap.attr('transform', `translate(${FMA_OFFSET[0]}, ${FMA_OFFSET[1]})`);
             // Extract paths
             const fmaData = await d3.xml(FMAMapSVG);
             const fmas = Array.from(fmaData.getElementsByTagName("path"))
@@ -114,6 +115,7 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                         .style('text-shadow', '1px 1px 3px rgba(0, 0, 0, 0.9)')
                         .style('fill', 'whitesmoke')
                         .style('pointer-events', 'none')
+                    
 
                     return fma.node()!;
                 });
@@ -137,13 +139,48 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                 });
 
             setNZMap(map.node()!);
+
+            // Draw images on top of everything else
+            Array.from(fmaData.getElementsByTagName("path"))
+                .forEach((p, i) => {
+                    const bbox = fmas[i].getBBox()
+                    if (images && images[i as FMA]) {
+                        const image = images[i as FMA]!;
+
+                        const x = (bbox.x + bbox.width / 2 + customTextOffsets[i as FMA][0]) - (60*image[0][1])
+                        const y = (bbox.y + bbox.height / 2 + customTextOffsets[i as FMA][1]) - 10
+                        map.append("svg:image")
+                                .attr('x', x + FMA_OFFSET[0])
+                                .attr('y', y + FMA_OFFSET[1])
+                                .attr('width', 120*image[0][1])
+                                .attr('height', 120*image[0][1])
+                                .style('z-index', 20)
+                                .attr("xlink:href", image[0][0])
+                                .style("pointer-events", "none")
+
+                        image.slice(1).forEach(([im, scale], j) => {
+                            const x = (bbox.x + bbox.width / 2 + customTextOffsets[i as FMA][0]) - (57*scale*(image.length-1)) + (120 * j * scale)
+                            const y = (bbox.y + bbox.height / 2 + customTextOffsets[i as FMA][1]) + 80 + (60-(60*scale))
+                            map.append("svg:image")
+                                .attr('x', x + FMA_OFFSET[0])
+                                .attr('y', y + FMA_OFFSET[1])
+                                .attr('width', 120*scale)
+                                .attr('height', 120*scale)
+                                .style('z-index', 20)
+                                .attr("xlink:href", im)
+                                .style("pointer-events", "none")
+                        })
+                        
+
+                    }
+                });
         })();
 
         // Setup auto detecting of box width
         window.addEventListener('resize', onResize);
         onResize();
         return () => window.removeEventListener('resize', onResize);
-    }, [onResize]);
+    }, [onResize, images]);
 
     // Setup onclick
     useEffect(() => {
