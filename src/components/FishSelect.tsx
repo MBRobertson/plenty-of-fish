@@ -48,7 +48,7 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
                     const percent = levelToPercent(level);
                     return <div style={{ 
                         height: `${(percent*100).toFixed(2)}%`,
-                        backgroundColor: d3.interpolateRdYlGn(i === 0 ? 1-percent : percent)
+                        backgroundColor: d3.interpolateRdYlGn(percent)
                     }} className="bar"></div>
                 })
             }
