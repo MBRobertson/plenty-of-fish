@@ -48,3 +48,11 @@
 .InfoOverlay .toggle:hover {
     background-color: rgb(30, 30, 30);
 }
+
+.InfoOverlay.hidden .toggle {
+    background-color: #003c7d;
+}
+
+.InfoOverlay.hidden .toggle:hover {
+    background-color: #0057b5;
+}

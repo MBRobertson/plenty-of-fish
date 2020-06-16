@@ -18,6 +18,8 @@ export const InfoOverlay: React.FC<IInfoOverlay> = ({ currentFish }) => {
     useEffect(() => {
         if (currentFish !== undefined ) {
             setPrevFish(currentFish);
+        } else {
+            setVisible(false);
         }
     }, [currentFish])
 
