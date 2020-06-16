@@ -6,6 +6,7 @@ import { FMA, NumFished, FishType } from './resources/data';
 import { FMAMap, MapHighlight } from './components/FMAMap';
 import { FishSelect } from './components/FishSelect';
 import { ColorLegend } from './components/ColorLegend';
+import { InfoOverlay } from './components/InfoOverlay';
 
 const colorScheme = d3.interpolateYlGnBu
 
@@ -46,7 +47,7 @@ const computeHighlights = (fish: FishType): { highlights: {[K in FMA]? : MapHigh
 function App() {
   const [highlights, setHighlights] = useState<{[K in FMA]? : MapHighlight}>({});
   const [selectedFish, setSelectedFish] = useState<FishType[]>([]);
-  const [selectedFMA, setSelectedFMA] = useState<FMA | undefined>(undefined)
+  const [selectedFMA, setSelectedFMA] = useState<FMA | undefined>(undefined);
   const [legendDomain, setLegendDomain] = useState<[number, number]>([0, 1]);
 
   const onFishClick = useCallback((fish: FishType) => {
@@ -87,6 +88,7 @@ function App() {
         <ColorLegend disabled={selectedFish.length !== 1} title="Quantity Fished (tonnes)" scale={colorScheme} domain={legendDomain}/>
       </FMAMap>
       <FishSelect SelectedFMA={selectedFMA} SelectedFish={selectedFish} onMouseClick={onFishClick}/>
+      { selectedFish[0] !== undefined && <InfoOverlay currentFish={selectedFish[0]}/> }      
     </div>
   );
 }

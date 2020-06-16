@@ -1,5 +1,6 @@
 import data from './numFished.json'
 import threatJson from './threatLevel.json'
+import fishInfoJson from './fish_info.json'
 
 export type FishType = "Blue Cod" |
     "Flat Fish" |
@@ -106,4 +107,20 @@ export const ThreatLevels = (() => {
         threatData.push(threat);
     });
     return threatData;
+})();
+
+export interface IFishInfo {
+    subtitle: string,
+    description: string
+}
+
+export const FishInfo = (() => {
+    const fishInfoData: {[key in FishType]?:IFishInfo} = {};
+    fishInfoJson.forEach(fish => {
+        fishInfoData[fish.title as FishType] = {
+            subtitle: fish.subtitle,
+            description: fish.description,
+        }
+    });
+    return fishInfoData;
 })();
