@@ -4,6 +4,8 @@ import { FishType } from '../resources/data';
 import { Fishes } from '../resources/fish-images';
 import { ThreatLevels, FMA, DangerLevels } from '../resources/data';
 
+import FishImg from '../resources/fish-images/greenfish.png';
+
 import './FishSelect.css';
 
 interface IFishSelect {
@@ -52,22 +54,30 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
                     extraClassName = SelectedFish.indexOf(fishType as FishType) === -1 ? 'Inactive' : 'Active'
                 }
 
-                let popupData: React.ReactNode[] = [];
-                if (threatLevels[i]) {
-                    popupData = threatLevels[i].map((level, i) => {
-                        const percent = levelToPercent(level);
-                        return <div style={{
-                            height: `${(percent * 100).toFixed(2)}%`,
-                            backgroundColor: d3.interpolateRdYlGn(percent)
-                        }} className="bar"></div>
-                    })
-                }
+                // let popupData: React.ReactNode[] = [];
+                // if (threatLevels[i]) {
+                //     popupData = threatLevels[i].map((level, i) => {
+                //         const percent = levelToPercent(level);
+                //         return <div style={{
+                //             height: `${(percent * 100).toFixed(2)}%`,
+                //             backgroundColor: d3.interpolateRdYlGn(percent)
+                //         }} className="bar"></div>
+                //     })
+                // }
 
                 return <div key={fishType} className={`Fish ${extraClassName}`} onClick={() => {
                     if (onMouseClick) onMouseClick(fishType as FishType);
                 }}>
-                    <div className={`popout ${SelectedFMA === undefined ? 'inactive' : ''}`}>
+                    {/* <div className={`popout ${SelectedFMA === undefined ? 'inactive' : ''}`}>
                         <div className={`popoutContent`}>{popupData}</div>
+                    </div> */}
+                    <div className={`popout ${SelectedFMA === undefined ? 'inactive' : ''}`}>
+                        <div className={`popoutContent`}>
+                            <img style={{
+                                animationDelay: `${Math.round(Math.random()*2000)}ms`,
+                                animationDuration: `${Math.round(Math.random()*2000)+2000}ms`
+                            }} className="FishAnim" src={FishImg} alt="FishLevel"/>
+                        </div>
                     </div>
                     <img src={fishImage} alt={fishType} />
                     <div className="name">{fishType}</div>
