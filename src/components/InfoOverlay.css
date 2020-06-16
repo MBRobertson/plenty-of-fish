@@ -19,6 +19,10 @@
     transform: translate(-100%, -50%) translateY(-55px);
 }
 
+.InfoOverlay.superhidden {
+    transform: translate(-100%, -50%) translate(-35px, -55px);
+}
+
 .InfoOverlay .toggle {
     position: absolute;
     right: -35px;
