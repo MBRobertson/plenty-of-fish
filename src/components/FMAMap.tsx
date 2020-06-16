@@ -17,7 +17,7 @@ const customTextOffsets: { [K in FMA]: [number, number] } = {
     [FMA.FMA5]: [-80, -70],
     [FMA.FMA6]: [100, -150],
     [FMA.FMA7]: [20, -20],
-    [FMA.FMA8]: [-100, -80],
+    [FMA.FMA8]: [-50, -80],
     [FMA.FMA9]: [-130, -60],
     [FMA.FMA10]: [0, 0]
 }
@@ -136,6 +136,7 @@ export const FMAMap: React.FC<IFMAMap> = ({ onMouseEnter, onMouseLeave, onMouseC
                         .attr('fill', 'black')
                         .attr('stroke', '#0068ad')
                         .attr('stroke-width', 3)
+                        .style("pointer-events", "none")
                 });
 
             setNZMap(map.node()!);
