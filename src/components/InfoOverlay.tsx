@@ -1,16 +1,24 @@
 import React from 'react';
-import { FishType, FishInfo, IFishInfo } from '../resources/data';
+import { FishType, FishInfo } from '../resources/data';
+
+import './InfoOverlay.css';
 
 interface IInfoOverlay {
     currentFish: FishType,
     disabled?: boolean
 }
 
-export const InfoOverlay: React.FC<IInfoOverlay> = ({ currentFish }) => {
+export const InfoOverlay: React.FC<IInfoOverlay> = ({ currentFish, disabled }) => {
+    //@ts-ignore
+    const fish = FishInfo[currentFish];
 
-    const fish = FishInfo[currentFish] as IFishInfo;
-
-
-    return <div className="InfoOverlay"> 
-    </div>
+    if (fish !== undefined) {
+        return <div className="InfoOverlay">
+            <h1>{currentFish}</h1>
+            <h2>{fish.subtitle}</h2>
+            <p>{fish.description}</p>
+        </div>
+    } else {
+        return <div></div>
+    }
 }

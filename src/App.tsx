@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import './App.css';
 
-import { FMA, NumFished, FishType, IFishInfo } from './resources/data';
+import { FMA, NumFished, FishType } from './resources/data';
 import { FMAMap, MapHighlight } from './components/FMAMap';
 import { FishSelect } from './components/FishSelect';
 import { ColorLegend } from './components/ColorLegend';
@@ -86,9 +86,9 @@ function App() {
     <div className="App">
       <FMAMap highlights={highlights} onMouseClick={onFMAClick} selectedFMA={selectedFMA}>
         <ColorLegend disabled={selectedFish.length !== 1} title="Quantity Fished (tonnes)" scale={colorScheme} domain={legendDomain}/>
-        <InfoOverlay disabled={selectedFish.length !== 1} currentFish={selectedFish}/>
       </FMAMap>
       <FishSelect SelectedFMA={selectedFMA} SelectedFish={selectedFish} onMouseClick={onFishClick}/>
+      <InfoOverlay disabled={selectedFish.length !== 1} currentFish={selectedFish[0]}/>
     </div>
   );
 }

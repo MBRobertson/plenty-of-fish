@@ -123,4 +123,4 @@ export const FishInfo = (() => {
         }
     });
     return fishInfoData;
-})
+})();
