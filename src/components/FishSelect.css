@@ -102,3 +102,57 @@
     color: whitesmoke;
     text-shadow: 0 0 3px #002741b7;
 }
+
+.FishSelect-Container {
+    position: relative;
+}
+
+.FishData {
+    position: absolute;
+    height: 100px;
+    top: 0;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #005974c2;
+    border-top: 1px solid #007da3;
+    box-shadow: 0 0 12px 1px #00141a;
+    transition: top 0.35s ease-in-out, height 0.35s ease-in-out;
+}
+
+.FishData.Active {
+    top: -140px;
+    height: 140px;
+}
+
+.FishData .targetlimit {
+    position: absolute;
+    height: 77%;
+    top: 23%;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #00365ac2;
+    border-top: 2px solid #0085127c;
+    box-shadow: inset 0 0 12px 1px #00141a;
+}
+
+.FishData .softlimit {
+    position: absolute;
+    height: 68%;
+    top: 31%;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #00234bc2;
+    border-top: 2px solid #ca73007c;
+    box-shadow: inset 0 0 12px 1px #00141a;
+}
+
+.FishData .hardlimit {
+    position: absolute;
+    height: 52%;
+    top: 48%;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #00163fc2;
+    border-top: 2px solid #ca00007c;
+    box-shadow: inset 0 0 12px 1px #00141a;
+}
