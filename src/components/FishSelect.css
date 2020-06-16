@@ -42,7 +42,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     transform: translateY(-100%) translateY(-8px);
-    transition: height 0.2s ease-in-out;
+    transition: height 0.35s ease-in-out;
     overflow: hidden;
     z-index: -10;
 }
@@ -169,10 +169,22 @@
 }
 
 
+.FishAnim.flipped {
+    animation-name: swimmingflipped;
+}
+
 @keyframes swimming {
     from { transform: translate(0,  4px) rotate(0); }
     25%  { transform: translate(0, 0px) rotate(15deg); }
     50%  { transform: translate(0, -4px) rotate(0); }
     75%  { transform: translate(0, 0px) rotate(-10deg); }
     to   { transform: translate(0, 4px) rotate(0); }    
+}
+
+@keyframes swimmingflipped {
+    from { transform: translate(0,  4px) rotate(0) scaleX(-1); }
+    25%  { transform: translate(0, 0px) rotate(15deg) scaleX(-1); }
+    50%  { transform: translate(0, -4px) rotate(0) scaleX(-1); }
+    75%  { transform: translate(0, 0px) rotate(-10deg) scaleX(-1); }
+    to   { transform: translate(0, 4px) rotate(0) scaleX(-1); }    
 }

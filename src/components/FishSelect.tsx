@@ -76,7 +76,7 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
                             <img style={{
                                 animationDelay: `${Math.round(Math.random()*2000)}ms`,
                                 animationDuration: `${Math.round(Math.random()*2000)+2000}ms`
-                            }} className="FishAnim" src={FishImg} alt="FishLevel"/>
+                            }} className="FishAnim flipped" src={FishImg} alt="FishLevel"/>
                         </div>
                     </div>
                     <img src={fishImage} alt={fishType} />
