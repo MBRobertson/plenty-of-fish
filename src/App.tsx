@@ -3,10 +3,21 @@ import * as d3 from 'd3';
 import './App.css';
 
 import { FMA, NumFished, FishType } from './resources/data';
+import { Fishes as FishImages } from './resources/fish-images';
 import { FMAMap, MapHighlight } from './components/FMAMap';
 import { FishSelect } from './components/FishSelect';
 import { ColorLegend } from './components/ColorLegend';
 import { InfoOverlay } from './components/InfoOverlay';
+
+const fishImages = (() => {
+  const images: {[K in FMA]? : [string, number][]} = {};
+  for (const fmaKey in FMA) {
+    const fma: FMA = FMA[fmaKey as keyof typeof FMA]
+    const top3 = NumFished.sort((a, b) => b.fma[fma]! - a.fma[fma]!).slice(0, 3)
+    images[fma] = top3.map((f, i) => [FishImages[f.fishName], [1.3, 0.9, 0.7][i]]);
+  }
+  return images;
+})()
 
 const colorScheme = d3.interpolateYlGnBu
 
@@ -84,7 +95,12 @@ function App() {
 
   return (
     <div className="App">
-      <FMAMap highlights={highlights} onMouseClick={onFMAClick} selectedFMA={selectedFMA}>
+      <FMAMap 
+        highlights={highlights} 
+        onMouseClick={onFMAClick} 
+        selectedFMA={selectedFMA}
+        images={fishImages}
+      >
         <ColorLegend disabled={selectedFish.length !== 1} title="Quantity Fished (tonnes)" scale={colorScheme} domain={legendDomain}/>
       </FMAMap>
       <FishSelect SelectedFMA={selectedFMA} SelectedFish={selectedFish} onMouseClick={onFishClick}/>
