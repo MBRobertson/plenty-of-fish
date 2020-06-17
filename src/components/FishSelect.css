@@ -168,6 +168,17 @@
     animation-timing-function: linear;
 }
 
+.FishAnim.height-2 {
+    top: 33px;
+}
+
+.FishAnim.height-3 {
+    top: 68px;
+}
+
+.FishAnim.height-4 {
+    top: 103px;
+}
 
 .FishAnim.flipped {
     animation-name: swimmingflipped;

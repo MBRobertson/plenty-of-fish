@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import * as d3 from 'd3';
+// import * as d3 from 'd3';
 import { FishType } from '../resources/data';
 import { Fishes } from '../resources/fish-images';
-import { ThreatLevels, FMA, DangerLevels } from '../resources/data';
+import { FMA } from '../resources/data';
 
-import FishImg from '../resources/fish-images/greenfish.png';
+import GreenFish from '../resources/fish-images/greenfish.png';
+import OrangeFish from '../resources/fish-images/orangefish.png';
+import RedFish from '../resources/fish-images/redfish.png';
 
 import './FishSelect.css';
+
+const FishImages = [GreenFish, GreenFish, OrangeFish, RedFish]
 
 interface IFishSelect {
     onMouseClick?: (fish: FishType) => any,
@@ -14,22 +18,31 @@ interface IFishSelect {
     SelectedFMA?: FMA
 }
 
-const levelToPercent = (level: DangerLevels) => {
-    const val = parseInt(DangerLevels[level]) + 4;
-    return val / 8;
-}
+// const levelToPercent = (level: DangerLevels) => {
+//     const val = parseInt(DangerLevels[level]) + 4;
+//     return val / 8;
+// }
 
 export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, SelectedFMA }) => {
-    const [threatLevels, setThreatLevels] = useState<DangerLevels[][]>([]);
+    // const [threatLevels, setThreatLevels] = useState<DangerLevels[][]>([]);
+    const [fishHeights, setFishHeights] = useState<number[]>([]);
+
+    // useEffect(() => {
+    //     if (SelectedFMA !== undefined) {
+    //         setThreatLevels(Object.keys(Fishes).map(fishType => {
+    //             const threat = ThreatLevels.filter(d => d.fishName === fishType)[0].fma[SelectedFMA as FMA];
+    //             if (threat) {
+    //                 return threat;
+    //             }
+    //             return [];
+    //         }));
+    //     }
+    // }, [SelectedFMA])
 
     useEffect(() => {
         if (SelectedFMA !== undefined) {
-            setThreatLevels(Object.keys(Fishes).map(fishType => {
-                const threat = ThreatLevels.filter(d => d.fishName === fishType)[0].fma[SelectedFMA as FMA];
-                if (threat) {
-                    return threat;
-                }
-                return [];
+            setFishHeights(Object.keys(Fishes).map((fishType, i) => {
+                return Math.round(Math.random() * 3) + 1;
             }));
         }
     }, [SelectedFMA])
@@ -76,7 +89,7 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
                             <img style={{
                                 animationDelay: `${Math.round(Math.random()*2000)}ms`,
                                 animationDuration: `${Math.round(Math.random()*2000)+2000}ms`
-                            }} className="FishAnim flipped" src={FishImg} alt="FishLevel"/>
+                            }} className={`FishAnim ${i % 3 !== 0 ? 'flipped' : ''} height-${fishHeights[i]}`} src={FishImages[fishHeights[i]-1]} alt="FishLevel"/>
                         </div>
                     </div>
                     <img src={fishImage} alt={fishType} />
