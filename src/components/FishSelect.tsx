@@ -55,10 +55,13 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
 
     return <div className="FishSelect-Container">
         <div className={`FishData ${(SelectedFMA !== undefined) ? 'Active' : ''}`}>
+            <span className="targettitle">Target Level</span>
             <div className="targetlimit">
+                <span className="targettitle">Soft Limit</span>
                 <div className="softlimit">
+                    <span className="targettitle">Hard Limit</span>
                     <div className="hardlimit">
-
+                        <span className="targettitle">Below Hard Limit</span>
                     </div>
                 </div>
             </div>
