@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import * as d3 from 'd3';
+import * as d3 from 'd3';
 import { FishType } from '../resources/data';
 import { Fishes } from '../resources/fish-images';
 import { ThreatLevels, FMA, DangerLevels } from '../resources/data';
@@ -32,7 +32,7 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
             setThreatLevels(Object.keys(Fishes).map(fishType => {
                 const threat = ThreatLevels.filter(d => d.fishName === fishType)[0].fma[SelectedFMA as FMA]![0];
                 if (threat) {
-                    return levelToPercent(threat);
+                    return 1-levelToPercent(threat);
                 }
                 return 0;
             }));
@@ -86,7 +86,14 @@ export const FishSelect: React.FC<IFishSelect> = ({ onMouseClick, SelectedFish, 
                 //     })
                 // }
 
-                return <div key={fishType} className={`Fish ${extraClassName}`} onClick={() => {
+                return <div style={
+                    SelectedFMA === undefined ? {} :
+                    {
+                        background: `radial-gradient(circle, rgba(4,101,128,0.4) 10%, rgba(0,66,110,0.6) 90%)`,
+                        borderColor: d3.rgb(d3.interpolateRdYlGn(threatLevels[i])).darker(1).hex(),
+                        backgroundColor: d3.interpolateRdYlGn(threatLevels[i])
+                    }
+                } key={fishType} className={`Fish ${extraClassName}`} onClick={() => {
                     if (onMouseClick) onMouseClick(fishType as FishType);
                 }}>
                     {/* <div className={`popout ${SelectedFMA === undefined ? 'inactive' : ''}`}>
