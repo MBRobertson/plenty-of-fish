@@ -88,13 +88,9 @@ export const ThreatLevels = (() => {
                 // @ts-ignore
                 dangerData[FMA[key.toUpperCase()]] = [
                     // @ts-ignore
-                    DangerLevels[(t[key][0] - 4) > -4 ? (t[key][0] - 4) * -1 : -4],
+                    DangerLevels[(t[key][0] - 4)],
                     // @ts-ignore
-                    DangerLevels[t[key][1] - 4],
-                    // @ts-ignore
-                    DangerLevels[t[key][2] - 4],
-                    // @ts-ignore
-                    DangerLevels[t[key][3] - 4],
+                    DangerLevels[t[key][1] - 1],
                 ]
             }
         });
